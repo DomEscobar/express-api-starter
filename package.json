@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "node src/index.js",
-    "dev": "nodemon src/index.js",
+    "dev": "nodemon --inspect --exec babel-node src/index.js",
     "lint": "eslint --fix src",
     "test": "mocha -w"
   },
@@ -21,9 +21,20 @@
     "dotenv": "^6.2.0",
     "express": "^4.16.4",
     "helmet": "^3.21.2",
-    "morgan": "^1.9.1"
+    "i": "^0.3.6",
+    "moment": "^2.24.0",
+    "morgan": "^1.9.1",
+    "puppeteer": "^2.0.0",
+    "request": "^2.88.0"
   },
   "devDependencies": {
+    "@babel/cli": "^7.2.3",
+    "@babel/core": "^7.4.0",
+    "@babel/node": "^7.2.2",
+    "@babel/plugin-proposal-class-properties": "^7.4.0",
+    "@babel/preset-env": "^7.4.2",
+    "babel-eslint": "^10.0.3",
+    "babel-plugin-module-resolver": "^3.2.0",
     "eslint": "^5.12.0",
     "eslint-config-airbnb-base": "^13.1.0",
     "eslint-plugin-import": "^2.14.0",
