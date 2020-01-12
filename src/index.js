@@ -17,12 +17,28 @@ function fetchProxies()
      }, function (error, response, body) {
        if (!error && response.statusCode == 200) {
          console.log('sucess!' + response);
+         clickYoutube();
        } else {
          console.log('error' + response.statusCode);
        }
      });
 }
 
-setInterval(fetchProxies, 300000); // every 5 minutes (300000)
+function clickYoutube()
+{
+  request({
+    url: "http://localhost:5000/api/v1/youtube/click?id=https://www.youtube.com/watch?v=_jLohHNrmT4",
+    method: "GET",
+    timeout: 0
+  }, function (error, response, body) {
+    if (!error && response.statusCode == 200) {
+      console.log('sucessYoutube!' + response);
+    } else {
+      console.log('error' + response);
+    }
+  });
+}
+
+setInterval(fetchProxies, 600000); // every 10 minutes (300000)
 
 fetchProxies()
