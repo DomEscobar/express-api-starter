@@ -19,7 +19,7 @@ function fetchProxies()
          console.log('sucess!' + response);
          clickYoutube();
        } else {
-         console.log('error' + response.statusCode);
+         console.log('error' + response);
        }
      });
 }
