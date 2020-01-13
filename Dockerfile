@@ -1,17 +1,12 @@
-FROM node:alpine
+FROM node:0.10.38
 
-# Create app directory
-WORKDIR /usr/src/app
+RUN mkdir /src
 
-# COPY package.json .
-# For npm@5 or later, copy package-lock.json as well
-COPY package.json package-lock.json ./
+RUN npm install express-generator -g
 
-# Install app dependencies
+WORKDIR /src
+ADD app/package.json /src/package.json
 RUN npm install
-
-# Bundle app source
-COPY . .
 
 EXPOSE 3000
 
