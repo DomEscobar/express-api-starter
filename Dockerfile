@@ -1,14 +1,15 @@
-FROM node:0.10.38
+FROM node:latest
 
-RUN mkdir /src
+RUN mkdir /app
+WORKDIR /app
 
-RUN npm install express-generator -g
+ENV PATH /app/node_modules/.bin:$PATH
 
-WORKDIR /src
-ADD package.json /src/package.json
+COPY package.json package-lock.json /app/
 RUN npm install
 
-EXPOSE 3000
+# Or if you're using Yarn
+# ADD package.json yarn.lock /app/
+# RUN yarn install
 
-# Start Node server
-CMD [ "npm", "start" ]
+COPY . /app/
