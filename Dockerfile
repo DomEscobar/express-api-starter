@@ -1,5 +1,5 @@
 FROM node:latest
-WORKDIR /app
+WORKDIR /
 COPY . .
 RUN npm install
 EXPOSE 3000
