@@ -1,11 +1,19 @@
-FROM node:latest
+FROM node:alpine
 
-RUN mkdir /app
-WORKDIR /app
+# Create app directory
+WORKDIR /usr/src/app
 
-ENV PATH /node_modules/.bin:$PATH
+# COPY package.json .
+# For npm@5 or later, copy package-lock.json as well
+COPY package.json package-lock.json ./
 
-COPY package.json package-lock.json /app/
+# Install app dependencies
 RUN npm install
 
-COPY . /app/
+# Bundle app source
+COPY . .
+
+EXPOSE 3000
+
+# Start Node server
+CMD [ "npm", "start" ]
