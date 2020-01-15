@@ -1,7 +1,7 @@
 const app = require('./app');
 const request = require('request');
 
-const port = process.env.PORT || 8080;
+const port = process.env.PORT || 3000;
 app.listen(port, () => {
   /* eslint-disable no-console */
   console.log(`Listening: http://localhost:${port}`);
@@ -11,7 +11,7 @@ app.listen(port, () => {
 function fetchProxies()
 {
     request({
-       url: "http://localhost:5000/api/v1/proxy",
+       url: `http://localhost:${port}/api/v1/proxy`,
        method: "GET",
        timeout: 10000
      }, function (error, response, body) {
@@ -27,7 +27,7 @@ function fetchProxies()
 function clickYoutube()
 {
   request({
-    url: "http://localhost:5000/api/v1/youtube/click?id=https://www.youtube.com/watch?v=_jLohHNrmT4",
+    url: `http://localhost:${port}/api/v1/youtube/click?id=https://www.youtube.com/watch?v=_jLohHNrmT4`,
     method: "GET",
     timeout: 0
   }, function (error, response, body) {
