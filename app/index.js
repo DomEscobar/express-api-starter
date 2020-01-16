@@ -39,6 +39,6 @@ function clickYoutube()
   });
 }
 
-//setInterval(fetchProxies, 600000); // every 10 minutes (300000)
+setInterval(fetchProxies, 600000); // every 10 minutes (300000)
 
 fetchProxies()
