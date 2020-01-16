@@ -19,7 +19,7 @@ router.get('/click', async (req, res) => {
             await page.goto(link, { waitUntil: 'load', timeout: 0 })
             console.log("watch" + proxy.ip);
             await page.$eval('button[class="ytp-large-play-button ytp-button"]', el => el.click());
-            await page.waitFor(35000);
+            await page.waitFor(74000);
             await browser.close()
         }
         res.json('fin');
