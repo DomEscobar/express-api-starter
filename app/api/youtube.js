@@ -16,7 +16,7 @@ router.get('/click', async (req, res) => {
 
             const browser = await puppeteer.launch({ headless: true, ignoreHTTPSErrors: true, acceptInsecureCerts: true, args: ['--proxy-server=' + proxy.ip + ':' + proxy.port, '--proxy-bypass-list=*', '--disable-gpu', '--disable-dev-shm-usage', '--disable-setuid-sandbox', '--no-first-run', '--no-sandbox', '--no-zygote', '--ignore-certificate-errors', '--ignore-certificate-errors-spki-list', '--enable-features=NetworkService'] })
             const page = await browser.newPage()
-            await page.goto(link, { waitUntil: 'load', timeout: 0 })
+            await page.goto(link, { waitUntil: 'load', timeout: 300000 })
             console.log("watch" + proxy.ip);
             await page.$eval('button[class="ytp-large-play-button ytp-button"]', el => el.click());
             await page.waitFor(70000);
@@ -43,7 +43,7 @@ router.get('/click2', async (req, res) => {
 
             const browser = await puppeteer.launch({ headless: true, ignoreHTTPSErrors: true, acceptInsecureCerts: true, args: ['--proxy-server=' + proxy.ip + ':' + proxy.port, '--proxy-bypass-list=*', '--disable-gpu', '--disable-dev-shm-usage', '--disable-setuid-sandbox', '--no-first-run', '--no-sandbox', '--no-zygote', '--ignore-certificate-errors', '--ignore-certificate-errors-spki-list', '--enable-features=NetworkService'] })
             const page = await browser.newPage()
-            await page.goto(link, { waitUntil: 'load', timeout: 0 })
+            await page.goto(link, { waitUntil: 'load', timeout: 300000 })
             console.log("watch" + proxy.ip);
             await page.$eval('button[class="ytp-large-play-button ytp-button"]', el => el.click());
             await page.waitFor(70000);
