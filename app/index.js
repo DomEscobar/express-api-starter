@@ -9,6 +9,11 @@ app.listen(port, () => {
 });
 
 function fetchProxies() {
+
+  if (global.working == true) {
+    return;
+  }
+
   request({
     url: `http://localhost:${port}/api/v1/proxy`,
     method: "GET",
@@ -25,6 +30,11 @@ function fetchProxies() {
 }
 
 function fetchProxies2() {
+
+  if (global.working2 == true) {
+    return;
+  }
+
   request({
     url: `http://localhost:${port}/api/v1/proxy/listende`,
     method: "GET",
@@ -40,6 +50,7 @@ function fetchProxies2() {
 }
 
 function clickYoutube() {
+
   request({
     url: `http://localhost:${port}/api/v1/youtube/click?id=https://www.youtube.com/watch?v=_jLohHNrmT4`,
     method: "GET",
@@ -54,6 +65,8 @@ function clickYoutube() {
 }
 
 function clickYoutube2() {
+
+
   request({
     url: `http://localhost:${port}/api/v1/youtube/click2?id=https://www.youtube.com/watch?v=_jLohHNrmT4`,
     method: "GET",
@@ -67,7 +80,7 @@ function clickYoutube2() {
   });
 }
 
-setInterval(fetchProxies, 600100); // every 10 minutes (300000)
-setInterval(fetchProxies2, 600100); // every 10 minutes (300000)
+setInterval(fetchProxies, 300100); // every 10 minutes (300000)
+setInterval(fetchProxies2, 300100); // every 10 minutes (300000)
 
 fetchProxies()
