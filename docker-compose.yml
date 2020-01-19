@@ -16,4 +16,4 @@ services:
         condition: on-failure
         delay: 5s
     ports:
-      - "80:3000"
+      - "80:3500"
