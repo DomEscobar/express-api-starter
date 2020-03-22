@@ -45,14 +45,13 @@ function fetchProxies2() {
     } else {
       console.log('error' + response);
     }
-    clickYoutube2()
   });
 }
 
 function clickYoutube() {
 
   request({
-    url: `http://localhost:${port}/api/v1/youtube/click?id=https://www.youtube.com/watch?v=_jLohHNrmT4`,
+    url: `https://www.youtube.com/watch?v=KorwezlLFjo&t=2s`,
     method: "GET",
     timeout: 0
   }, function (error, response, body) {
