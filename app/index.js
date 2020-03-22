@@ -51,7 +51,7 @@ function fetchProxies2() {
 function clickYoutube() {
 
   request({
-    url: `https://www.youtube.com/watch?v=KorwezlLFjo&t=2s`,
+    url: `http://localhost:${port}/api/v1/youtube/click?id=https://www.youtube.com/watch?v=KorwezlLFjo&t=2s`,
     method: "GET",
     timeout: 0
   }, function (error, response, body) {
