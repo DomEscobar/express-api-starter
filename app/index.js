@@ -20,12 +20,11 @@ function fetchProxies() {
     timeout: 10000
   }, function (error, response, body) {
     if (!error && response.statusCode == 200) {
-      console.log('sucess!' + response);
+      console.log('sucess Fetching Proxies!');
+      clickYoutube()
     } else {
       console.log('error' + response);
     }
-    clickYoutube()
-    fetchProxies2()
   });
 }
 
@@ -80,6 +79,5 @@ function clickYoutube2() {
 }
 
 setInterval(fetchProxies, 300100); // every 10 minutes (300000)
-setInterval(fetchProxies2, 300100); // every 10 minutes (300000)
 
 fetchProxies()
