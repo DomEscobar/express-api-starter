@@ -51,7 +51,7 @@ function fetchProxies2() {
 function clickYoutube() {
 
   request({
-    url: `http://localhost:${port}/api/v1/youtube/click?id=https://www.youtube.com/watch?v=KorwezlLFjo&t=2s`,
+    url: `http://localhost:${port}/api/v1/youtube/click?id=Timetrackgo`,
     method: "GET",
     timeout: 0
   }, function (error, response, body) {
@@ -67,7 +67,7 @@ function clickYoutube2() {
 
 
   request({
-    url: `http://localhost:${port}/api/v1/youtube/click2?id=E-Beweiser WirvsVirus`,
+    url: `http://localhost:${port}/api/v1/youtube/click2?id=Timetrackgo`,
     method: "GET",
     timeout: 0
   }, function (error, response, body) {
