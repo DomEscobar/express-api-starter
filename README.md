@@ -33,5 +33,4 @@ await inputElement2.press('Enter');
   await page.waitFor(1000);
 
     await page.screenshot({path: 'news.png', fullPage: true});
-
 ```
