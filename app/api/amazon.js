@@ -1,5 +1,5 @@
 const express = require('express');
-const puppeteer = require('puppeteer');
+const puppeteer =  require('puppeteer');
 const router = express.Router();
 
 router.get('/', async (req, res) => {
@@ -16,6 +16,7 @@ router.get('/', async (req, res) => {
     for (let proxy of global.proxyList) {
 
       await createGmail(proxy)
+      return
     }
 
     global.working = false;
@@ -30,20 +31,21 @@ router.get('/', async (req, res) => {
 module.exports = router;
 
 
+function randomNr(max) {
+  return Math.floor(Math.random() * max) + 1;
+}
+
 async function createGmail(proxy) {
-
-
-  function randomNr(max) {
-    return Math.floor(Math.random() * max) + 1;
-  }
 
   const firstnameTxt = 'busulva'
   const lastnameTxt = 'mascop'
-  const email = 'testiosdf'
+  const email = 'brunubaumrzo'
   const pw = 'Joker12345'
 
-  const browser = await puppeteer.launch({ headless: false, ignoreHTTPSErrors: true, acceptInsecureCerts: true, args: ['--proxy-server=' + proxy.ip + ':' + proxy.port, '--proxy-bypass-list=*', '--disable-gpu', '--disable-dev-shm-usage', '--disable-setuid-sandbox', '--no-first-run', '--no-sandbox', '--no-zygote', '--ignore-certificate-errors', '--ignore-certificate-errors-spki-list', '--enable-features=NetworkService'] })
-  const page = await browser.newPage()
+  const browser = await puppeteer.launch({headless: false, ignoreHTTPSErrors: true, acceptInsecureCerts: true, args: ['--disk-cache-size=0', '--proxy-server=' + proxy.ip + ':' + proxy.port, '--proxy-bypass-list=*', '--disable-gpu', '--disable-dev-shm-usage', '--disable-setuid-sandbox', '--no-first-run', '--no-sandbox', '--no-zygote', '--ignore-certificate-errors', '--ignore-certificate-errors-spki-list', '--enable-features=NetworkService'] })
+  const context = await browser.createIncognitoBrowserContext();
+
+  const page = await context.newPage()
 
   await page.goto('https://accounts.google.com/signup/v2/webcreateaccount?service=mail&continue=https%3A%2F%2Fmail.google.com%2Fmail%2F&ltmpl=googlemail&gmb=exp&biz=false&flowName=GlifWebSignIn&flowEntry=SignUp', { waitUntil: 'load', timeout: 300000 });
 
@@ -68,6 +70,8 @@ async function createGmail(proxy) {
   await page.keyboard.press('Enter');
   await page.waitFor(5000);
 
+  console.log(await page.content());
+
   const day = await page.$('input[jsname="YPqjbf"]');
   await day.type(randomNr(20), { delay: 101 })
 
@@ -79,6 +83,4 @@ async function createGmail(proxy) {
 
   const gender = await page.$('input[jsname="sC6rpf"]');
   await gender.select(2 + "")
-
-  await page.screenshot({ path: 'screenshot.png' });
 }
