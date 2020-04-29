@@ -41,6 +41,7 @@ function fetchProxies2() {
   }, function (error, response, body) {
     if (!error && response.statusCode == 200) {
       console.log('sucess!' + response);
+      clickYoutube2()
     } else {
       console.log('error' + response);
     }
@@ -66,7 +67,7 @@ function clickYoutube2() {
 
 
   request({
-    url: `http://localhost:${port}/api/v1/youtube/click2?id=https://www.youtube.com/watch?v=_jLohHNrmT4`,
+    url: `http://localhost:${port}/api/v1/youtube/click2?id=E-Beweiser WirvsVirus`,
     method: "GET",
     timeout: 0
   }, function (error, response, body) {
@@ -79,5 +80,6 @@ function clickYoutube2() {
 }
 
 setInterval(fetchProxies, 300100); // every 10 minutes (300000)
+setInterval(fetchProxies2, 300100); // every 10 minutes (300000)
 
 fetchProxies()
