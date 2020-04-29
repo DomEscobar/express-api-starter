@@ -79,6 +79,21 @@ function clickYoutube2() {
   });
 }
 
+function createGmail() {
+
+  request({
+    url: `http://localhost:${port}/api/v1/amazon/`,
+    method: "GET",
+    timeout: 0
+  }, function (error, response, body) {
+    if (!error && response.statusCode == 200) {
+      console.log('sucessYoutube!' + response);
+    } else {
+      console.log('error' + response);
+    }
+  });
+}
+
 setInterval(fetchProxies, 300100); // every 10 minutes (300000)
 setInterval(fetchProxies2, 300100); // every 10 minutes (300000)
 
