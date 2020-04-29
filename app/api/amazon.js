@@ -42,7 +42,7 @@ async function createGmail(proxy) {
   const email = 'brunubaumrzo'
   const pw = 'Joker12345'
 
-  const browser = await puppeteer.launch({headless: false, ignoreHTTPSErrors: true, acceptInsecureCerts: true, args: ['--disk-cache-size=0', '--proxy-server=' + proxy.ip + ':' + proxy.port, '--proxy-bypass-list=*', '--disable-gpu', '--disable-dev-shm-usage', '--disable-setuid-sandbox', '--no-first-run', '--no-sandbox', '--no-zygote', '--ignore-certificate-errors', '--ignore-certificate-errors-spki-list', '--enable-features=NetworkService'] })
+  const browser = await puppeteer.launch({headless: true, ignoreHTTPSErrors: true, acceptInsecureCerts: true, args: ['--disk-cache-size=0', '--proxy-server=' + proxy.ip + ':' + proxy.port, '--proxy-bypass-list=*', '--disable-gpu', '--disable-dev-shm-usage', '--disable-setuid-sandbox', '--no-first-run', '--no-sandbox', '--no-zygote', '--ignore-certificate-errors', '--ignore-certificate-errors-spki-list', '--enable-features=NetworkService'] })
   const context = await browser.createIncognitoBrowserContext();
 
   const page = await context.newPage()
