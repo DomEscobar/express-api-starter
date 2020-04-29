@@ -71,14 +71,16 @@ function randomSecond() {
 
 async function randomYoutube(proxy, word) {
 
-    const browser = await puppeteer.launch({ headless: true, ignoreHTTPSErrors: true, acceptInsecureCerts: true, args: ['--proxy-server=' + proxy.ip + ':' + proxy.port, '--proxy-bypass-list=*', '--disable-gpu', '--disable-dev-shm-usage', '--disable-setuid-sandbox', '--no-first-run', '--no-sandbox', '--no-zygote', '--ignore-certificate-errors', '--ignore-certificate-errors-spki-list', '--enable-features=NetworkService'] })
+    const browser = await puppeteer.launch({ headless: false, ignoreHTTPSErrors: true, acceptInsecureCerts: true, args: ['--proxy-server=' + proxy.ip + ':' + proxy.port, '--proxy-bypass-list=*', '--disable-gpu', '--disable-dev-shm-usage', '--disable-setuid-sandbox', '--no-first-run', '--no-sandbox', '--no-zygote', '--ignore-certificate-errors', '--ignore-certificate-errors-spki-list', '--enable-features=NetworkService'] })
     const page = await browser.newPage()
     console.log("watch " + proxy.ip);
 
     await page.goto('https://www.youtube.com/', { waitUntil: 'load', timeout: 300000 })
 
     const inputElement = await page.$('input');
-    await inputElement.type(word, { delay: 110 })
+    await inputElement.type(word.substring(0, 4), { delay: 110 })
+    await inputElement.type(word.substring(4, word.length), { delay: 140 })
+
     await inputElement.press('Enter');
 
     //------------- click first element
@@ -94,7 +96,7 @@ async function randomYoutube(proxy, word) {
         await page.$eval('button[class="ytp-large-play-button ytp-button"]', el => el.click());
     }
 
-    await page.waitFor(12660 + randomSecond()+ randomSecond()+ randomSecond());
+    await page.waitFor(15660 + randomSecond()*5);
 
     // ------------- click random video
     const randomVid = await page.$('ytd-compact-video-renderer')
@@ -103,12 +105,10 @@ async function randomYoutube(proxy, word) {
 
     const playBtnTitle2 = await page.$eval('#movie_player', el => el.outerHTML);
 
-    if (playBtnTitle != null && playBtnTitle2.includes('paused-mode')) {
-        console.log('pushing ok')
+    if (playBtnTitle2 != null && playBtnTitle2.includes('paused-mode')) {
         await page.$eval('button[class="ytp-large-play-button ytp-button"]', el => el.click());
     }
-    await page.$eval('button[class="ytp-large-play-button ytp-button"]', el => el.click());
-    await page.waitFor(5000 + randomSecond());
+    await page.waitFor(5000 + randomSecond()*3);
 
     // ---------- random search
     const inputElement2 = await page.$('input[name="search_query"]');
@@ -122,10 +122,10 @@ async function randomYoutube(proxy, word) {
 
     await page.waitFor(randomSecond());
 
-    await page.type('input[name="search_query"]', word + '  ' + randomWord() + ' ');
+    await page.type('input[name="search_query"]', word + '  ' + randomWord() + ' ', { delay: 105 });
 
     await inputElement2.press('Enter');
 
-    await page.waitFor(randomSecond());
+    await page.waitFor(randomSecond()*5);
     await browser.close()
 }
