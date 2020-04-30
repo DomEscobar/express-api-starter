@@ -1,6 +1,8 @@
 const express = require('express');
-const puppeteer =  require('puppeteer');
+const puppeteer = require('puppeteer-extra')
 const router = express.Router();
+const StealthPlugin = require('puppeteer-extra-plugin-stealth')
+const AdblockerPlugin = require('puppeteer-extra-plugin-adblocker')
 
 router.get('/', async (req, res) => {
 
@@ -41,11 +43,12 @@ async function createGmail(proxy) {
   const lastnameTxt = 'mascop'
   const email = 'brunubaumrzo'
   const pw = 'Joker12345'
+  puppeteer.use(StealthPlugin())
+  puppeteer.use(AdblockerPlugin({ blockTrackers: true }))
+  puppeteer.use(require('puppeteer-extra-plugin-anonymize-ua')())
 
-  const browser = await puppeteer.launch({headless: true, ignoreHTTPSErrors: true, acceptInsecureCerts: true, args: ['--disk-cache-size=0', '--proxy-server=' + proxy.ip + ':' + proxy.port, '--proxy-bypass-list=*', '--disable-gpu', '--disable-dev-shm-usage', '--disable-setuid-sandbox', '--no-first-run', '--no-sandbox', '--no-zygote', '--ignore-certificate-errors', '--ignore-certificate-errors-spki-list', '--enable-features=NetworkService'] })
-  const context = await browser.createIncognitoBrowserContext();
-
-  const page = await context.newPage()
+  const browser = await puppeteer.launch({headless: false, args: ['--disk-cache-size=0', '--proxy-server=' + proxy.ip + ':' + proxy.port, '--proxy-bypass-list=*', '--disable-gpu', '--disable-dev-shm-usage', '--disable-setuid-sandbox', '--no-first-run', '--no-sandbox', '--no-zygote', '--ignore-certificate-errors', '--ignore-certificate-errors-spki-list', '--enable-features=NetworkService'] })
+  const page = await browser.newPage()
 
   await page.goto('https://accounts.google.com/signup/v2/webcreateaccount?service=mail&continue=https%3A%2F%2Fmail.google.com%2Fmail%2F&ltmpl=googlemail&gmb=exp&biz=false&flowName=GlifWebSignIn&flowEntry=SignUp', { waitUntil: 'load', timeout: 300000 });
 
@@ -69,6 +72,12 @@ async function createGmail(proxy) {
 
   await page.keyboard.press('Enter');
   await page.waitFor(5000);
+
+  await page.screenshot({
+    path: "./screenshot.jpg",
+    type: "jpeg",
+    fullPage: true
+  });
 
   console.log(await page.content());
 

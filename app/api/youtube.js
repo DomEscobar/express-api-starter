@@ -1,6 +1,8 @@
 const express = require('express');
-const puppeteer = require('puppeteer');
 const router = express.Router();
+const puppeteer = require('puppeteer-extra')
+const StealthPlugin = require('puppeteer-extra-plugin-stealth')
+const AdblockerPlugin = require('puppeteer-extra-plugin-adblocker')
 
 router.get('/click', async (req, res) => {
 
@@ -71,9 +73,13 @@ function randomSecond() {
 
 async function randomYoutube(proxy, word) {
 
+    puppeteer.use(StealthPlugin())
+    puppeteer.use(AdblockerPlugin({ blockTrackers: true }))
+    puppeteer.use(require('puppeteer-extra-plugin-anonymize-ua')())
     const browser = await puppeteer.launch({ headless: true, ignoreHTTPSErrors: true, acceptInsecureCerts: true, args: ['--proxy-server=' + proxy.ip + ':' + proxy.port, '--proxy-bypass-list=*', '--disable-gpu', '--disable-dev-shm-usage', '--disable-setuid-sandbox', '--no-first-run', '--no-sandbox', '--no-zygote', '--ignore-certificate-errors', '--ignore-certificate-errors-spki-list', '--enable-features=NetworkService'] })
     const page = await browser.newPage()
     console.log("watch " + proxy.ip);
+    
 
     await page.goto('https://www.youtube.com/', { waitUntil: 'load', timeout: 300000 })
 
