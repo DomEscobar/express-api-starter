@@ -93,8 +93,3 @@ function createGmail() {
     }
   });
 }
-
-setInterval(fetchProxies, 300100); // every 10 minutes (300000)
-setInterval(fetchProxies2, 300100); // every 10 minutes (300000)
-
-fetchProxies()

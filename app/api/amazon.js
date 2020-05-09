@@ -1,11 +1,11 @@
 const express = require('express');
 const puppeteer = require('puppeteer-extra')
+const bot = require('./puppeteer-bot')
 const router = express.Router();
 const StealthPlugin = require('puppeteer-extra-plugin-stealth')
 const AdblockerPlugin = require('puppeteer-extra-plugin-adblocker')
 
 router.get('/', async (req, res) => {
-
   try {
 
     if (global.proxyList == null) {
@@ -47,9 +47,19 @@ async function createGmail(proxy) {
   puppeteer.use(AdblockerPlugin({ blockTrackers: true }))
   puppeteer.use(require('puppeteer-extra-plugin-anonymize-ua')())
 
-  const browser = await puppeteer.launch({headless: false, args: ['--disk-cache-size=0', '--proxy-server=' + proxy.ip + ':' + proxy.port, '--proxy-bypass-list=*', '--disable-gpu', '--disable-dev-shm-usage', '--disable-setuid-sandbox', '--no-first-run', '--no-sandbox', '--no-zygote', '--ignore-certificate-errors', '--ignore-certificate-errors-spki-list', '--enable-features=NetworkService'] })
+  const browser = await puppeteer.launch({ headless: false, args: ['--disk-cache-size=0', '--proxy-server=' + proxy.ip + ':' + proxy.port, '--proxy-bypass-list=*', '--disable-gpu', '--disable-dev-shm-usage', '--disable-setuid-sandbox', '--no-first-run', '--no-sandbox', '--no-zygote', '--ignore-certificate-errors', '--ignore-certificate-errors-spki-list', '--enable-features=NetworkService'] })
   const page = await browser.newPage()
+  
+  await bot.disguisePage(page)
+  await page.goto('https://browserleaks.com/canvas');
+  await page.waitFor(2000);
+  await page.screenshot({
+    path: "./stealth.jpg",
+    type: "jpeg",
+    fullPage: true
+  });
 
+  return;
   await page.goto('https://accounts.google.com/signup/v2/webcreateaccount?service=mail&continue=https%3A%2F%2Fmail.google.com%2Fmail%2F&ltmpl=googlemail&gmb=exp&biz=false&flowName=GlifWebSignIn&flowEntry=SignUp', { waitUntil: 'load', timeout: 300000 });
 
   await page.waitFor(2000);

@@ -3,12 +3,18 @@
     "@babel/preset-env"
   ],
   "plugins": [
+    "@babel/plugin-transform-classes",
     "@babel/plugin-proposal-class-properties",
-    ["module-resolver", {
-      "root": ["."],
-      "alias": {
-        "test": "./test"
+    [
+      "module-resolver",
+      {
+        "root": [
+          "."
+        ],
+        "alias": {
+          "test": "./test"
+        }
       }
-    }],
+    ],
   ]
 }
